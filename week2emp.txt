@@ -31,10 +31,12 @@ CREATE TABLE employee.employeeinfo (
     AND min_index_interval = 128
     AND read_repair = 'BLOCKING'
     AND speculative_retry = '99p';
-cqlsh:employee> insert into employeeinfo(emp_id, emp_name, designation, dateofjoining, salary, dept_name) values (1, 'Adithya', 'Manager', '2018-01-01', 77000, 'Corporate');
-cqlsh:employee> insert into employeeinfo(emp_id, emp_name, designation, dateofjoining, salary, dept_name) values (2, 'Brundle', 'Developer', '2018-01-01', 55000, 'Software');
-cqlsh:employee> insert into employeeinfo(emp_id, emp_name, designation, dateofjoining, salary, dept_name) values (3, 'Ted', 'Designer', '2018-05-15', 32000, 'Design');
-cqlsh:employee> insert into employeeinfo(emp_id, emp_name, designation, dateofjoining, salary, dept_name) values (4, 'Karun', 'Recruiter', '2018-06-09', 32000, 'HR');
+cqlsh:employee>begin batch
+            ... insert into employeeinfo(emp_id, emp_name, designation, dateofjoining, salary, dept_name) values (1, 'Adithya', 'Manager', '2018-01-01', 77000, 'Corporate');
+            ... insert into employeeinfo(emp_id, emp_name, designation, dateofjoining, salary, dept_name) values (2, 'Brundle', 'Developer', '2018-01-01', 55000, 'Software');
+            ... insert into employeeinfo(emp_id, emp_name, designation, dateofjoining, salary, dept_name) values (3, 'Ted', 'Designer', '2018-05-15', 32000, 'Design');
+            ... insert into employeeinfo(emp_id, emp_name, designation, dateofjoining, salary, dept_name) values (4, 'Karun', 'Recruiter', '2018-06-09', 32000, 'HR');
+            ... apply batch;            
 cqlsh:employee> select * from employeeinfo;
 
  emp_id | dateofjoining                   | dept_name | designation | emp_name | salary
