@@ -4,6 +4,8 @@ Connected to Test Cluster at 127.0.0.1:9042.
 Use HELP for help.
 cqlsh> create keyspace library with replication = {'class' : 'SimpleStrategy', 'replication_factor' : 1};
 cqlsh> use library;
+cqlsh:library> create table libraryinfo(stud_id int, counter_value counter, stud_name text, book_name text, book_id int, date_of_issue timestamp, primary key(stud_id, stud
+_name, book_name, book_id, date_of_issue));
 cqlsh:library> update libraryinfo set counter_value=counter_value+1 where stud_id=110 and stud_name='Adithya' and book_name='BDA' and book_id=10 and date_of_issue='2020-10-10';
 cqlsh:library> update libraryinfo set counter_value=counter_value+1 where stud_id=111 and stud_name='Michael' and book_name='AMG' and book_id=11 and date_of_issue='2020-10-11';
 cqlsh:library> update libraryinfo set counter_value=counter_value+1 where stud_id=112 and stud_name='Seb' and book_name='RBR' and book_id=12 and date_of_issue='2020-10-12';
