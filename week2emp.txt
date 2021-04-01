@@ -32,7 +32,7 @@ CREATE TABLE employee.employeeinfo (
     AND read_repair = 'BLOCKING'
     AND speculative_retry = '99p';
 cqlsh:employee>begin batch
-            ... insert into employeeinfo(emp_id, emp_name, designation, dateofjoining, salary, dept_name) values (1, 'Adithya128', 'Manager', '2018-01-01', 77000, 'Corporate');
+            ... insert into employeeinfo(emp_id, emp_name, designation, dateofjoining, salary, dept_name) values (1, 'Adithya', 'Manager', '2018-01-01', 77000, 'Corporate');
             ... insert into employeeinfo(emp_id, emp_name, designation, dateofjoining, salary, dept_name) values (2, 'Brundle', 'Developer', '2018-01-01', 55000, 'Software');
             ... insert into employeeinfo(emp_id, emp_name, designation, dateofjoining, salary, dept_name) values (3, 'Ted', 'Designer', '2018-05-15', 32000, 'Design');
             ... insert into employeeinfo(emp_id, emp_name, designation, dateofjoining, salary, dept_name) values (4, 'Karun', 'Recruiter', '2018-06-09', 32000, 'HR');
@@ -41,7 +41,7 @@ cqlsh:employee> select * from employeeinfo;
 
  emp_id | dateofjoining                   | dept_name | designation | emp_name | salary
 --------+---------------------------------+-----------+-------------+----------+--------
-      1 | 2017-12-31 18:30:00.000000+0000 | Corporate |     Manager |  Adithya128 |  77000
+      1 | 2017-12-31 18:30:00.000000+0000 | Corporate |     Manager |  Adithya |  77000
       2 | 2017-12-31 18:30:00.000000+0000 |  Software |   Developer |  Brundle |  55000
       4 | 2018-06-08 18:30:00.000000+0000 |        HR |   Recruiter |    Karun |  32000
       3 | 2018-05-14 18:30:00.000000+0000 |    Design |    Designer |      Ted |  32000
@@ -52,7 +52,7 @@ cqlsh:employee> select * from employeeinfo;
 
  emp_id | dateofjoining                   | dept_name | designation | emp_name | salary
 --------+---------------------------------+-----------+-------------+----------+--------
-      1 | 2017-12-31 18:30:00.000000+0000 | Corporate |     Manager |  Adithya128 |  77000
+      1 | 2017-12-31 18:30:00.000000+0000 | Corporate |     Manager |  Adithya |  77000
       2 | 2017-12-31 18:30:00.000000+0000 |  Software |   Developer |  Brundle |  55000
       4 | 2018-06-08 18:30:00.000000+0000 |        HR |   Recruiter |    Karun |  32000
     121 | 2019-06-08 18:30:00.000000+0000 |    Design |    Marketer |     Nico |  37000
@@ -64,7 +64,7 @@ cqlsh:employee> select * from employeeinfo;
 
  emp_id | dateofjoining                   | dept_name | designation | emp_name | salary
 --------+---------------------------------+-----------+-------------+----------+--------
-      1 | 2017-12-31 18:30:00.000000+0000 | Corporate |     Manager |  Adithya128 |  77000
+      1 | 2017-12-31 18:30:00.000000+0000 | Corporate |     Manager |  Adithya |  77000
       2 | 2017-12-31 18:30:00.000000+0000 |  Software |   Developer |  Brundle |  55000
       4 | 2018-06-08 18:30:00.000000+0000 |        HR |   Recruiter |    Karun |  32000
     121 | 2019-06-08 18:30:00.000000+0000 |  Software |    Marketer |  Rosberg |  37000
@@ -78,7 +78,7 @@ cqlsh:employee> select * from employeeinfo;
 
  emp_id | dateofjoining                   | dept_name | designation | emp_name | projects     | salary
 --------+---------------------------------+-----------+-------------+----------+--------------+--------
-      1 | 2017-12-31 18:30:00.000000+0000 | Corporate |     Manager |  Adithya128 | {'P1', 'P2'} |  77000
+      1 | 2017-12-31 18:30:00.000000+0000 | Corporate |     Manager |  Adithya | {'P1', 'P2'} |  77000
       2 | 2017-12-31 18:30:00.000000+0000 |  Software |   Developer |  Brundle | {'P1', 'P2'} |  55000
       4 | 2018-06-08 18:30:00.000000+0000 |        HR |   Recruiter |    Karun | {'P1', 'P2'} |  32000
     121 | 2019-06-08 18:30:00.000000+0000 |  Software |    Marketer |  Rosberg | {'P1', 'P2'} |  37000
