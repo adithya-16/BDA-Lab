@@ -1,0 +1,56 @@
+adithya@DESKTOP-IC2MJ8U:~$ cqlsh
+Connected to Test Cluster at 127.0.0.1:9042.
+[cqlsh 5.0.1 | Cassandra 4.0 | CQL spec 3.4.5 | Native protocol v4]
+Use HELP for help.
+cqlsh> create keyspace library with replication = {'class' : 'SimpleStrategy', 'replication_factor' : 1};
+cqlsh> use library;
+cqlsh:library> update libraryinfo set counter_value=counter_value+1 where stud_id=110 and stud_name='Adithya' and book_name='BDA' and book_id=10 and date_of_issue='2020-10-10';
+cqlsh:library> update libraryinfo set counter_value=counter_value+1 where stud_id=111 and stud_name='Michael' and book_name='AMG' and book_id=11 and date_of_issue='2020-10-11';
+cqlsh:library> update libraryinfo set counter_value=counter_value+1 where stud_id=112 and stud_name='Seb' and book_name='RBR' and book_id=12 and date_of_issue='2020-10-12';
+cqlsh:library> update libraryinfo set counter_value=counter_value+1 where stud_id=114 and stud_name='Kimi' and book_name='MCL' and book_id=15 and date_of_issue='2020-10-15';
+
+
+ stud_id | stud_name | book_name | book_id | date_of_issue                   | counter_value
+---------+-----------+-----------+---------+---------------------------------+---------------
+     114 |      Kimi |       MCL |      15 | 2020-10-14 18:30:00.000000+0000 |             1
+     110 |   Adithya |       BDA |      10 | 2020-10-09 18:30:00.000000+0000 |             1
+     111 |   Michael |       AMG |      11 | 2020-10-10 18:30:00.000000+0000 |             1
+     112 |       Seb |       RBR |      12 | 2020-10-11 18:30:00.000000+0000 |             1
+
+(4 rows)
+cqlsh:library> update libraryinfo set counter_value=counter_value+1 where stud_id=110 and stud_name='Adithya' and book_name='BDA' and book_id=10 and date_of_issue='2020-10-10';
+cqlsh:library> select * from libraryinfo where stud_id=110;
+
+ stud_id | stud_name | book_name | book_id | date_of_issue                   | counter_value
+---------+-----------+-----------+---------+---------------------------------+---------------
+     110 |   Adithya |       BDA |      10 | 2020-10-09 18:30:00.000000+0000 |             2
+
+(1 rows)
+cqlsh:library> create table libraryinfocopy(stud_id int, counter_value counter, stud_name text, book_name text, book_id int, date_of_issue timestamp, primary key(stud_id, stud
+_name, book_name, book_id, date_of_issue));
+cqlsh:library> copy libraryinfo(stud_id, counter_value, stud_name, book_name, book_id, date_of_issue) to 'week2lib.csv';
+Using 7 child processes
+
+Starting copy of library.libraryinfo with columns [stud_id, counter_value, stud_name, book_name, book_id, date_of_issue].
+cqlshlib.copyutil.ExportProcess.write_rows_to_csv(): writing row
+cqlshlib.copyutil.ExportProcess.write_rows_to_csv(): writing row
+cqlshlib.copyutil.ExportProcess.write_rows_to_csv(): writing row
+cqlshlib.copyutil.ExportProcess.write_rows_to_csv(): writing row
+Processed: 4 rows; Rate:      16 rows/s; Avg. rate:      16 rows/s
+4 rows exported to 1 files in 0.299 seconds.
+cqlsh:library> copy libraryinfocopy(stud_id, counter_value, stud_name, book_name, book_id, date_of_issue) from 'week2lib.csv';
+Using 7 child processes
+
+Starting copy of library.libraryinfocopy with columns [stud_id, counter_value, stud_name, book_name, book_id, date_of_issue].
+Processed: 4 rows; Rate:       8 rows/s; Avg. rate:      11 rows/s
+4 rows imported from 1 files in 0.354 seconds (0 skipped).
+cqlsh:library> select * from libraryinfocopy;
+
+ stud_id | stud_name | book_name | book_id | date_of_issue                   | counter_value
+---------+-----------+-----------+---------+---------------------------------+---------------
+     114 |      Kimi |       MCL |      15 | 2020-10-14 18:30:00.000000+0000 |             1
+     110 |   Adithya |       BDA |      10 | 2020-10-09 18:30:00.000000+0000 |             2
+     111 |   Michael |       AMG |      11 | 2020-10-10 18:30:00.000000+0000 |             1
+     112 |       Seb |       RBR |      12 | 2020-10-11 18:30:00.000000+0000 |             1
+
+(4 rows)
